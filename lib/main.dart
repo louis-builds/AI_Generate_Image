@@ -4,9 +4,16 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/foundation.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: kIsWeb,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       title: 'AI Image Generator',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
